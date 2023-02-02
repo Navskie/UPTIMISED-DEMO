@@ -92,7 +92,7 @@
                   'On Order',
                   'UPTIMAIN',
                   '$office',
-                  '$state',
+                  '$states',
                   '$csid'
               )";
               $save_qry = mysqli_query($connect, $save_sql);
@@ -147,7 +147,7 @@
               trans_contact = '$phone', 
               trans_country = '$country',
               trans_office = '$office',
-              trans_state = '$state'
+              trans_state = '$states'
           WHERE trans_poid = '$poid'";
           $update_qry = mysqli_query($connect, $update_sql);
 
