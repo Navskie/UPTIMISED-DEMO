@@ -59,6 +59,11 @@
             
               header('location: order-list.php');
             } else {
+
+              if ($states == '' && $country != 'CANADA') {
+                $states = 'ALL';
+              }
+
               $save_sql = "INSERT INTO upti_transaction (
                   trans_poid,
                   trans_date, 
