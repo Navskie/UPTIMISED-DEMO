@@ -12,9 +12,9 @@
     $id = $_GET['id'];
 
     if (isset($_POST['delivered'])) {
-        // date_default_timezone_set('Asia/Manila'); 
-        // $time = date("h:i A");
-        // $datenow = date('m-d-Y');
+        date_default_timezone_set('Asia/Manila'); 
+        $time = date("h:i A");
+        $datenow = date('m-d-Y');
 
         $transaction_history = "SELECT * FROM upti_transaction WHERE id = '$id'";
         $transaction_history_sql = mysqli_query($connect, $transaction_history);
