@@ -973,8 +973,6 @@
               $stockist_w = mysqli_query($connect, "UPDATE stockist_wallet SET w_earning = '$stockist_wallet' WHERE w_id = '$stockist'");
             }
           }
-
-
         // stockist end
         }
 ?>

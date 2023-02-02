@@ -114,7 +114,7 @@
                       </tr>
                       </thead>
                       <?php
-                        $wallet_sql = "SELECT * FROM stockist_earning INNER JOIN upti_transaction ON trans_poid = e_poid WHERE e_id = '$reseller_id' AND e_country = '$country' AND trans_state = '$state'";
+                        $wallet_sql = "SELECT * FROM stockist_earning INNER JOIN upti_transaction ON trans_poid = e_poid WHERE e_id = '$SCode' AND e_country = '$country' AND trans_state = '$state'";
                         $wallet_qry = mysqli_query($connect, $wallet_sql);
                         while ($wallet = mysqli_fetch_array($wallet_qry)) {
                       ?>
