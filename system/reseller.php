@@ -1,7 +1,7 @@
 <?php include 'include/header.php'; ?>
 
 <?php
-    $SCode = $_SESSION['code'];
+    $osrID = $_SESSION['code'];
     
     $check_stockist = "SELECT * FROM stockist WHERE stockist_code = '$SCode'";
     $check_stockist_qry = mysqli_query($connect, $check_stockist);
@@ -144,17 +144,77 @@
     <br>
     <h5 class="mb-2"><br></h5>
     <?php
-      $total_points_sql_0 = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_reseller = '$myid' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '04-01-2022' AND '07-31-2022'";
-      $total_sql_points_sql_0 = mysqli_query($connect, $total_points_sql_0);
-      $total_fetch_points_sql_0 = mysqli_fetch_array($total_sql_points_sql_0);
+      $january = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' OR upti_order_list.ol_reseller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '01-01-2023' AND '01-31-2023'";
+      $january_01 = mysqli_query($connect, $january);
+      $january_2023 = mysqli_fetch_array($january_01);
 
-      $reward_sales = $total_fetch_points_sql_0['total'];
+      $february = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' OR upti_order_list.ol_reseller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '02-01-2023' AND '02-28-2023'";
+      $february_01 = mysqli_query($connect, $february);
+      $february_2023 = mysqli_fetch_array($february_01);
 
-      $total_points_sql_1 = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_reseller = '$myid' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '08-01-2022' AND '10-31-2022'";
-      $total_sql_points_sql_1 = mysqli_query($connect, $total_points_sql_1);
-      $total_fetch_points_sql_1 = mysqli_fetch_array($total_sql_points_sql_1);
+      $march = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '03-01-2023' AND '03-31-2023'";
+      $march_01 = mysqli_query($connect, $march);
+      $march_2023 = mysqli_fetch_array($march_01);
 
-      $reward_sales1 = $total_fetch_points_sql_1['total'];
+      $april = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '04-01-2023' AND '04-30-2023'";
+      $april_01 = mysqli_query($connect, $april);
+      $april_2023 = mysqli_fetch_array($april_01);
+
+      $may = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '05-01-2023' AND '05-31-2023'";
+      $may_01 = mysqli_query($connect, $may);
+      $may_2023 = mysqli_fetch_array($may_01);
+
+      $june = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '06-01-2023' AND '06-30-2023'";
+      $june_01 = mysqli_query($connect, $june);
+      $june_2023 = mysqli_fetch_array($june_01);
+
+      $july = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '07-01-2023' AND '07-31-2023'";
+      $july_01 = mysqli_query($connect, $july);
+      $july_2023 = mysqli_fetch_array($july_01);
+
+      $august = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '08-01-2023' AND '08-31-2023'";
+      $august_01 = mysqli_query($connect, $august);
+      $august_2023 = mysqli_fetch_array($august_01);
+
+      $september = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '09-01-2023' AND '09-30-2023'";
+      $september_01 = mysqli_query($connect, $september);
+      $september_2023 = mysqli_fetch_array($september_01);
+
+      $october = "SELECT SUM(upti_order_list.ol_php) AS total FROM upti_order_list INNER JOIN upti_activities ON upti_order_list.ol_poid = upti_activities.activities_poid WHERE upti_order_list.ol_seller = '$osrID' AND upti_activities.activities_caption = 'Order Delivered' AND upti_activities.activities_date BETWEEN '10-01-2023' AND '10-31-2023'";
+      $october_01 = mysqli_query($connect, $october);
+      $october_2023 = mysqli_fetch_array($october_01);
+
+      // echo $total_fetch_points_sql_2['total'];
+      // echo '<br>';
+      // echo $total_fetch_points_sql_0['total'];
+      $reward_sales = $january_2023['total'] + $february_2023['total'];
+                      // $march_2023['total'] +
+                      // $april_2023['total'] +
+                      // $may_2023['total'] +
+                      // $june_2023['total'] +
+                      // $july_2023['total'] +
+                      // $august_2023['total'] +
+                      // $september_2023['total'] +
+                      // $october_2023['total'];
+      // echo $january_2023['total']; 
+      // echo '<br>';
+      // echo $february_2023['total']; 
+      // echo '<br>';
+      // echo $march_2023['total'];
+      // echo '<br>';
+      // echo $april_2023['total'];
+      // echo '<br>';
+      // echo $may_2023['total'];
+      // echo '<br>';
+      // echo $june_2023['total'];
+      // echo '<br>';
+      // echo $july_2023['total'];
+      // echo '<br>';
+      // echo $august_2023['total'];
+      // echo '<br>';
+      // echo $september_2023['total'];
+      // echo '<br>';
+      // echo $october_2023['total'];
     ?>
     <div class="row">
 
@@ -184,24 +244,9 @@
         </div>
 
         <div class="info">
-          <h6>Boracay Travel Incentive</h6>
-          <h2><b><?php echo number_format($reward_sales) ?> / 400,000</b></h2>
-          <p class="text-danger pt-2">1 Ticket for every 400,000 sales (April - July)</p>
-        </div>
-      </div>
-      <br>
-    </div>
-
-    <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="course">
-        <div class="preview" style="background: #2771D0;">
-          <h2 class="text-center text-light"><i class="uil uil-plane-departure"></i></h2>
-        </div>
-
-        <div class="info">
-          <h6>Boracay Travel Incentive</h6>
-          <h2><b><?php echo number_format($reward_sales1) ?> / 400,000</b></h2>
-          <p class="text-danger pt-2">1 Ticket for every 400,000 sales (August - October)</p>
+          <h6>Korea Travel Incentive</h6>
+          <h2><b><?php echo number_format($reward_sales) ?> / 2,000,000</b></h2>
+          <p class="text-danger pt-2">January 1, 2023 - October 31, 2023</p>
         </div>
       </div>
       <br>
