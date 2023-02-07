@@ -12,23 +12,23 @@
     $id = $_GET['id'];
 
     if (isset($_POST['delivered'])) {
-        // date_default_timezone_set('Asia/Manila'); 
-        // $time = date("h:i A");
-        // $datenow = date('m-d-Y');
+        date_default_timezone_set('Asia/Manila'); 
+        $time = date("h:i A");
+        $datenow = date('m-d-Y');
 
-        // $transaction_history = "SELECT * FROM upti_transaction WHERE id = '$id'";
-        // $transaction_history_sql = mysqli_query($connect, $transaction_history);
-        // $transaction_fetch = mysqli_fetch_array($transaction_history_sql);
+        $transaction_history = "SELECT * FROM upti_transaction WHERE id = '$id'";
+        $transaction_history_sql = mysqli_query($connect, $transaction_history);
+        $transaction_fetch = mysqli_fetch_array($transaction_history_sql);
 
-        // $seller_id = $transaction_fetch['trans_seller'];
-        // $poid = $transaction_fetch['trans_poid'];
-        // $country = $transaction_fetch['trans_country']; 
-        // $state = $transaction_fetch['trans_state']; 
-        // $amount = $transaction_fetch['trans_subtotal'];
-        // $mod = $transaction_fetch['trans_mop'];
-        // $trans_date = $transaction_fetch['trans_date'];
-        // $trans_state = $transaction_fetch['trans_state'];
-        // $csid = $transaction_fetch['trans_csid'];
+        $seller_id = $transaction_fetch['trans_seller'];
+        $poid = $transaction_fetch['trans_poid'];
+        $country = $transaction_fetch['trans_country']; 
+        $state = $transaction_fetch['trans_state']; 
+        $amount = $transaction_fetch['trans_subtotal'];
+        $mod = $transaction_fetch['trans_mop'];
+        $trans_date = $transaction_fetch['trans_date'];
+        $trans_state = $transaction_fetch['trans_state'];
+        $csid = $transaction_fetch['trans_csid'];
 
         // // STOCKIST PERCENTAGE
         // if ($country == 'CANADA') {
