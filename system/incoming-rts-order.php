@@ -43,7 +43,7 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                  echo $state;
+                                  echo $country;
                                     if($country == 'UNITED ARAB EMIRATES') {
                                        $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' OR trans_status= 'RTS' AND trans_country = 'OMAN' AND trans_stockist = '' OR trans_status= 'RTS' AND trans_country = 'KUWAIT' AND trans_stockist = '' OR trans_status= 'RTS' AND trans_country = 'BAHRAIN' AND trans_state = '' OR trans_status= 'RTS' AND trans_country = 'QATAR' AND trans_stockist = '' ORDER BY trans_date ASC";
                                     } elseif ($state == 'ALBERTA' && $country == 'CANADA') {
