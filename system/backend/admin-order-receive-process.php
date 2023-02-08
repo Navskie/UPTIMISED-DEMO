@@ -11,6 +11,34 @@
     if (isset($_POST['receive'])) {
         $get_order_list = "SELECT * FROM upti_order_list INNER JOIN upti_transaction ON ol_poid = trans_poid WHERE ol_poid = '$id'";
         $get_order_list_sql = mysqli_query($connect, $get_order_list);
+
+        // Stockist Refund
+        $percentage_qry = mysqli_query($connect, "SELECT p_amount FROM stockist_percentage WHERE p_code = '$uid' AND p_poid = '$id'");
+        $percentage = mysqli_fetch_array($percentage_qry);
+
+        $p_amount = $percentage['p_amount'];
+
+        $refund_qry = mysqli_query($connect, "SELECT SUM(e_refund) AS e_ref FROM stockist_earning WHERE e_id = '$uid' AND e_poid = '$id'");
+        $refund = mysqli_fetch_array($refund_qry);
+
+        $r_amount = $percentage['p_e_ref'];
+
+        $deduct = $p_amount + $r_amount;
+
+        $get_wallet_qry = mysqli_query($connect, "SELECT w_earning FROM stockist_wallet WHERE w_id = '$uid'");
+        $get_wallet = mysqli_fetch_array($get_wallet_qry);
+
+        $balance = $get_wallet['w_earning'];
+
+        $remain_balance = $balance - $deduct;
+
+        $update_wallet_qry = mysqli_query($connect, "UPDATE stockist_earning SET w_earning = '$remain_balance' WHERE w_id = '$uid'");
+
+        $delete_percentage = mysqli_query($connect, "DELETE FROM stockist_percentage WHERE p_poid = '$id'");
+
+        $delete_earning = mysqli_query($connect, "DELETE FROM stockist_earning WHERE e_poid = '$id'");
+        // End Refund
+
         while ($get_order_list_fetch = mysqli_fetch_array($get_order_list_sql)) {
             $code = $get_order_list_fetch['ol_code'];
             $qty = $get_order_list_fetch['ol_qty'];
