@@ -19,7 +19,7 @@
         $refund_qry = mysqli_query($connect, "SELECT SUM(e_refund) AS e_ref FROM stockist_earning WHERE e_id = '$uid' AND e_poid = '$id'");
         $refund = mysqli_fetch_array($refund_qry);
 
-        $r_amount = $percentage['p_e_ref'];
+        $r_amount = $percentage['e_ref'];
 
         $deduct = $p_amount + $r_amount;
 
