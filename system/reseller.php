@@ -1,6 +1,7 @@
 <?php include 'include/header.php'; ?>
 
 <?php
+    $SCode = $_SESSION['code'];
     $osrID = $_SESSION['code'];
     
     $check_stockist = "SELECT * FROM stockist WHERE stockist_code = '$SCode'";
