@@ -792,7 +792,7 @@
         if (mysqli_num_rows($check_boga) > 0) {
           $update_loyalty = mysqli_query($connect, "UPDATE upti_loyalty SET loyalty_number = '0' WHERE loyalty_code = '$csid'");
         }
-        stockist commision
+        // stockist commision
         
         if ($country == 'CANADA' && $state == 'ALBERTA' || $country == 'USA' || $country == 'TAIWAN') {
           $order_list = mysqli_query($connect, "SELECT * FROM upti_order_list WHERE ol_poid = '$poid'");
@@ -1001,7 +1001,7 @@
               $stockist_w = mysqli_query($connect, "UPDATE stockist_wallet SET w_earning = '$stockist_wallet' WHERE w_id = '$stockist'");
             }
           }
-        stockist end
+        // stockist end
         }
 ?>
     <script>alert('Order Status has been changed to Delivered Successfully');window.location.href = '../poid-list.php?id=<?php echo $id ?>';</script>
