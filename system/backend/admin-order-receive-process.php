@@ -75,6 +75,9 @@
                     $q5 = $pack_fetch['package_five_qty'] * $qty;
                     $c5 = $pack_fetch['package_five_code'];
 
+                    $q6 = $pack_fetch['package_six_qty'] * $qty;
+                    $c6 = $pack_fetch['package_six_code'];
+
                     // 1
 
                     $get_remain_sql1 = "SELECT * FROM stockist_inventory WHERE si_item_code = '$c1' AND si_item_country = '$country' AND si_item_state = '$state'";
@@ -145,6 +148,20 @@
                     
                     $receive_sql5 = "UPDATE stockist_inventory SET si_item_stock = '$new_stocks5' WHERE si_item_code = '$c5' AND si_item_country = '$country'";
                     $receive_qry5 = mysqli_query($connect, $receive_sql5);
+
+                    // 5
+
+                    $get_remain_sql6 = "SELECT * FROM stockist_inventory WHERE si_item_code = '$c5' AND si_item_country = '$country' AND si_item_state = '$state'";
+                    $get_remain_qry6 = mysqli_query($connect, $get_remain_sql6);
+                    $get_remain_fetch6 = mysqli_fetch_array($get_remain_qry6);
+                    
+                    $remain_stock_qty6 = $get_remain_fetch5['si_item_stock'];
+                    // echo '<br>';
+                    
+                    $new_stocks6 = $remain_stock_qty6 + $q6;
+                    
+                    $receive_sql6 = "UPDATE stockist_inventory SET si_item_stock = '$new_stocks6' WHERE si_item_code = '$c6' AND si_item_country = '$country'";
+                    $receive_qry6 = mysqli_query($connect, $receive_sql6);
 
                     $re_sql = "INSERT INTO stockist_return (re_poid, re_code, re_qty, re_date, re_status) VALUES ('$id', '$remain_stock_code', '$qty', '$date', 'Received')";
                     $re_qry = mysqli_query($connect, $re_sql);
