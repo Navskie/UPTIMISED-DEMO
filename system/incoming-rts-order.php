@@ -43,14 +43,15 @@
                                     </tr>
                                 </thead>
                                 <?php
+                                  echo $state;
                                     if($country == 'UNITED ARAB EMIRATES') {
-                                       echo $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' OR trans_status= 'RTS' AND trans_country = 'OMAN' AND trans_stockist = '' OR trans_status= 'RTS' AND trans_country = 'KUWAIT' AND trans_stockist = '' OR trans_status= 'RTS' AND trans_country = 'BAHRAIN' AND trans_state = '' OR trans_status= 'RTS' AND trans_country = 'QATAR' AND trans_stockist = '' ORDER BY trans_date ASC";
+                                       $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' OR trans_status= 'RTS' AND trans_country = 'OMAN' AND trans_stockist = '' OR trans_status= 'RTS' AND trans_country = 'KUWAIT' AND trans_stockist = '' OR trans_status= 'RTS' AND trans_country = 'BAHRAIN' AND trans_state = '' OR trans_status= 'RTS' AND trans_country = 'QATAR' AND trans_stockist = '' ORDER BY trans_date ASC";
                                     } elseif ($state == 'ALBERTA' && $country == 'CANADA') {
-                                        echo $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' AND trans_stockist = '' AND trans_state = '$state' ORDER BY trans_date ASC";
+                                        $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' AND trans_stockist = '' AND trans_state = '$state' ORDER BY trans_date ASC";
                                     } elseif ($state == 'ALL' && $country == 'CANADA') {
-                                        echo $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' AND trans_stockist = '' AND trans_state != 'ALBERTA' ORDER BY trans_date ASC";
+                                        $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_country = '$country' AND trans_stockist = '' AND trans_state != 'ALBERTA' ORDER BY trans_date ASC";
                                     } else {
-                                        echo $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_stockist = '' AND trans_country = '$country' ORDER BY trans_date DESC";
+                                        $order_sql = "SELECT * FROM upti_transaction WHERE trans_status= 'RTS' AND trans_stockist = '' AND trans_country = '$country' ORDER BY trans_date DESC";
                                     }
                                     $order_qry = mysqli_query($connect, $order_sql);
                                     $number =1;
