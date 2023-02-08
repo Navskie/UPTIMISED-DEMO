@@ -9,8 +9,6 @@
     $id = $_GET['id'];
 
     if (isset($_POST['receive'])) {
-        $get_order_list = "SELECT * FROM upti_order_list INNER JOIN upti_transaction ON ol_poid = trans_poid WHERE ol_poid = '$id'";
-        $get_order_list_sql = mysqli_query($connect, $get_order_list);
 
         // Stockist Refund
         $percentage_qry = mysqli_query($connect, "SELECT p_amount FROM stockist_percentage WHERE p_code = '$uid' AND p_poid = '$id'");
@@ -38,6 +36,9 @@
 
         $delete_earning = mysqli_query($connect, "DELETE FROM stockist_earning WHERE e_poid = '$id'");
         // End Refund
+
+        $get_order_list = "SELECT * FROM upti_order_list INNER JOIN upti_transaction ON ol_poid = trans_poid WHERE ol_poid = '$id'";
+        $get_order_list_sql = mysqli_query($connect, $get_order_list);
 
         while ($get_order_list_fetch = mysqli_fetch_array($get_order_list_sql)) {
             $code = $get_order_list_fetch['ol_code'];
