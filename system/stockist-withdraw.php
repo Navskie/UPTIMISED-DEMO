@@ -27,10 +27,11 @@
       <div class="container-fluid">
         <div class="row"> 
           <?php
+          
             $days = date('l');
             // $days = 'Friday';
 
-            $wallet_stmt = mysqli_query($connect, "SELECT * FROM stockist_wallet WHERE w_id = '$reseller_id'");
+            $wallet_stmt = mysqli_query($connect, "SELECT * FROM stockist_wallet WHERE w_id = '$SCode'");
             $wallet = mysqli_fetch_array($wallet_stmt);
 
             // wallet
@@ -39,7 +40,6 @@
             } else {  
               $available_balance = '0.00';
             }
-
 
           ?>
             
@@ -61,7 +61,7 @@
                 $date = date('m-d-Y', strtotime($today.'-7 days'));
                 //echo $date;
 
-                $get_pending = "SELECT * FROM upti_withdraw WHERE withdraw_name = '$reseller_id' AND withdraw_status = 'Pending'";
+                $get_pending = "SELECT * FROM upti_withdraw WHERE withdraw_name = '$SCode'";
                 $get_pending_qry = mysqli_query($connect, $get_pending);
                 $get_pending_num = mysqli_num_rows($get_pending_qry);
 
@@ -74,31 +74,19 @@
                       <thead>
                       <tr>
                         <th class="text-center">Date</th>
-                        <th class="text-center">Poid</th>
-                        <th class="text-center">Bank Name</th>
-                        <th class="text-center">Account Name</th>
-                        <th class="text-center">Account Number</th>
                         <th class="text-center">Amount</th>
                         <th class="text-center">Remarks</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Action</th>
                       </tr>
                       </thead>
                       <?php
-                        $wallet_sql = "SELECT * FROM stockist_earning WHERE e_id = '$reseller_id' AND e_country = '$employee' AND e_status = 'Sales' AND e_date BETWEEN '$date' AND '$today'";
+                        $wallet_sql = "SELECT * FROM upti_withdraw WHERE withdraw_name = '$SCode'";
                         $wallet_qry = mysqli_query($connect, $wallet_sql);
                         while ($wallet = mysqli_fetch_array($wallet_qry)) {
                       ?>
                       <tr>
-                        <td class="text-center"><?php echo $wallet['e_date'] ?> - <?php echo $wallet['e_time'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_poid'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_code'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_desc'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_qty'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_price'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_subtotal'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_subtotal'] ?></td>
-                        <td class="text-center"><?php echo $wallet['e_refund'] ?></td>
+                        <td class="text-center"><?php echo $wallet['withdraw_date'] ?></td>
+                        <td class="text-center"><?php echo $wallet['withdraw_amount'] ?></td>
+                        <td class="text-center"><?php echo $wallet['withdraw_remarks'] ?></td>
                       </tr>
                       <?php } ?>                  
                     </table>

@@ -199,7 +199,7 @@
           </li>
           <?php
             }
-            if ($_SESSION['code'] == 'S7130' || $_SESSION['code'] == 'S1114' || $_SESSION['code'] == 'S1126') {
+            if ($_SESSION['code'] == 'S1123' || $_SESSION['code'] == 'S1114' || $_SESSION['code'] == 'S1126') {
           ?>
           <li class="nav-item">
             <a href="#" class="nav-link">
