@@ -72,6 +72,17 @@
             // if ($date_order > '07-03-2022') {
                 if ($check_package_sql == 0) {
                   // echo '<br>';
+                  $get_main_code = mysqli_query($connect, "SELECT * FROM upti_code WHERE code_name = '$code'");
+                  $get_main_code_fetch = mysqli_fetch_array($get_main_code);
+
+                  $code_main = $get_main_code_fetch['code_main'];
+
+                  if ($code_main == '') {
+                    $code = $code;
+                  } else {
+                    $code = $code_main;
+                  }
+
                   $get_remain_sql = "SELECT * FROM stockist_inventory WHERE si_item_code = '$code' AND si_item_country = '$country' AND si_item_state = '$state'";
                   $get_remain_qry = mysqli_query($connect, $get_remain_sql);
                   $get_remain_fetch = mysqli_fetch_array($get_remain_qry);
