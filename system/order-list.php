@@ -1,5 +1,5 @@
 <?php include 'include/header.php'; ?>
-<?php include 'include/preloader.php'; ?>
+<?php //include 'include/preloader.php'; ?>
 <?php include 'include/navbar.php'; ?>
 <?php include 'include/sidebar.php'; ?>
 <style>
@@ -813,59 +813,15 @@
                                 $subtotal = $subtotal_fetch['subtotal'];
 
                                 // LESS shipping FEE
-                                $less_shipping_sql = "SELECT SUM(ol_qty) AS less_shipping FROM upti_order_list WHERE ol_poid = '$poid'";
+                                $less_shipping_sql = "SELECT COUNT(*) AS test, SUM(ol_qty) AS test2 FROM upti_order_list INNER JOIN upti_code ON code_name = ol_code WHERE ol_poid = '$poid' AND code_category = 'PROMO' OR code_category = 'BUY ONE GET ANY' OR code_category = 'REBATABLE' OR code_category = 'BUY ONE GET TWO' OR code_category = 'REBATABLE'";
                                 $less_shipping_qry = mysqli_query($connect, $less_shipping_sql);
                                 $less_shipping_fetch = mysqli_fetch_array($less_shipping_qry);
 
-                                $order_qtys = $less_shipping_fetch['less_shipping'];
+                                $order_qty = $less_shipping_fetch['test'];
+                                $sum_ng_qty = $less_shipping_fetch['test2'];
 
-                                // ADDED non-rebatable
-                                $rebatable_sql = "SELECT * FROM upti_code INNER JOIN upti_order_list ON upti_code.code_name = upti_order_list.ol_code WHERE upti_order_list.ol_poid = '$poid' AND upti_code.code_category = 'NON-REBATABLE'";
-                                $rebatable_qry = mysqli_query($connect, $rebatable_sql);
-                                $rebatable_num = mysqli_num_rows($rebatable_qry);
-
-                                if ($rebatable_num != 0) {
-                                    while ($rebatable = mysqli_fetch_array($rebatable_qry)) {
-                                        $codeitem = $rebatable['code_name'];
-                                        $rebate_shipping_sql = "SELECT SUM(ol_qty) AS rebate_shipping FROM upti_order_list WHERE ol_code = '$codeitem' AND ol_poid = '$poid'";
-                                        $rebate_shipping_qry = mysqli_query($connect, $rebate_shipping_sql);
-                                        $rebate_shipping_fetch = mysqli_fetch_array($rebate_shipping_qry);
-        
-                                        $rebate_less += $rebate_shipping_fetch['rebate_shipping'];
-                                        //echo $rebate_less++;
-                                    }
-                                }
-
-                                // ADDED FREE
-                                $free_sql = "SELECT * FROM upti_code INNER JOIN upti_order_list ON upti_code.code_name = upti_order_list.ol_code WHERE upti_order_list.ol_poid = '$poid' AND upti_code.code_category = 'FREE'";
-                                $free_qry = mysqli_query($connect, $free_sql);
-                                while ($rebatable = mysqli_fetch_array($free_qry)) {
-                                    $codeitemfree = $rebatable['code_name'];
-                                    $rebatefree_shipping_sql = "SELECT SUM(ol_qty) AS rebate_shipping FROM upti_order_list WHERE ol_code = '$codeitemfree' AND ol_poid = '$poid'";
-                                    $rebatefree_shipping_qry = mysqli_query($connect, $rebatefree_shipping_sql);
-                                    $rebatefree_shipping_fetch = mysqli_fetch_array($rebatefree_shipping_qry);
-    
-                                    $free_less += $rebatefree_shipping_fetch['rebate_shipping'];
-                                    //echo $rebate_less++;
-                                }
-
-                                // ADDED FREE
-                                $free2_sql = "SELECT DISTINCT ol_code, code_name FROM upti_code INNER JOIN upti_order_list ON upti_code.code_name = upti_order_list.ol_code WHERE upti_order_list.ol_poid = '$poid' AND upti_code.code_category = 'FREE TWO'";
-                                $free2_qry = mysqli_query($connect, $free2_sql);
-                                while ($rebatable = mysqli_fetch_array($free2_qry)) {
-                                    $codeitemfree2 = $rebatable['code_name'];
-                                    $rebatefree2_shipping_sql = "SELECT SUM(ol_qty) AS rebate_shipping FROM upti_order_list WHERE ol_code = '$codeitemfree2' AND ol_poid = '$poid'";
-                                    $rebatefree2_shipping_qry = mysqli_query($connect, $rebatefree2_shipping_sql);
-                                    $rebatefree2_shipping_fetch = mysqli_fetch_array($rebatefree2_shipping_qry);
-    
-                                    $free_less2 += $rebatefree2_shipping_fetch['rebate_shipping'];
-                                    //echo $rebate_less++;
-                                }
-
-                                $order_qty = $order_qtys - $rebate_less - $free_less - $free_less2;
-                                $customer_country;
                                 // FOR CANADA PART
-                                if ($customer_country == 'CANADA' || $customer_country == 'UNITED ARAB EMIRATES') {
+                                if ($customer_country == 'UNITED ARAB EMIRATES' || $customer_country == 'CANADA') {
                                     $get_less_shipping_fee = "SELECT * FROM upti_shipping WHERE shipping_country = '$customer_country'";
                                     $get_less_shipping_fee_qry = mysqli_query($connect, $get_less_shipping_fee);
                                     $get_less_shipping_fee_num = mysqli_num_rows($get_less_shipping_fee_qry);
@@ -925,32 +881,40 @@
                                 $shipping_fetch = mysqli_fetch_array($shipping_qry);
                                 $shipping_num = mysqli_num_rows($shipping_qry);
 
-                                $remove_shipping = "SELECT * FROM upti_order_list WHERE ol_poid = '$poid' AND ol_code = 'JN04'";
+                                $remove_shipping = "SELECT SUM(ol_qty) AS nonre FROM upti_order_list INNER JOIN upti_code ON code_name = ol_code WHERE ol_poid = '$poid' AND code_category = 'NON-REBATABLE'";
                                 $remove_shipping_sql = mysqli_query($connect, $remove_shipping);
-                                $remove_num = mysqli_num_rows($remove_shipping_sql);
+                                $remove_num = mysqli_fetch_array($remove_shipping_sql);
 
-                                // for canada only
-                                // for canada only
-                                if ($customer_country == 'CANADA') {
-                                  if ($rebate_less == 4 || $rebate_less == 5 || $rebate_less == 6) {
-                                    $tie_up_shipping = 5;
-                                  } elseif ($rebate_less == 7 || $rebate_less == 8) {
-                                    $tie_up_shipping = 10;
-                                  } elseif ($rebate_less >= 10) {
-                                    $tie_up_shipping = 20;
+                                $true_rebatable = $sum_ng_qty * 3;
+                                // echo '<br>';
+                                $false_rebatable = $remove_num['nonre'];
+
+                                if ($false_rebatable > $true_rebatable) {
+
+                                  $meme_mo = $false_rebatable - $true_rebatable;
+                                  // for canada only
+                                  if ($customer_country == 'CANADA') {
+                                    if ($meme_mo == 1 || $meme_mo == 2 || $meme_mo == 3) {
+                                      $tie_up_shipping = 5;
+                                    } elseif ($meme_mo == 4 || $meme_mo == 5) {
+                                      $tie_up_shipping = 10;
+                                    } elseif ($meme_mo >= 6) {
+                                      $tie_up_shipping = 20;
+                                    }
+                                  } else {
+                                    $tie_up_shipping = 0;
                                   }
                                 } else {
                                   $tie_up_shipping = 0;
                                 }
 
-                                if ($shipping_num <= 0 || $mode_of_payment == 'Cash On Pick Up' || $order_qty <= 2 && $customer_country == 'PHILIPPINES' && $remove_num == 1) {
+                                if ($shipping_num <= 0 || $mode_of_payment == 'Cash On Pick Up' || $order_qty <= 2 && $customer_country == 'PHILIPPINES') {
                                     $shipping = 0 + $tie_up_shipping;
                                 } else {
                                     $shipping = $shipping_fetch['shipping_price'] + $tie_up_shipping;
                                 }
 
                                 if($customer_country == 'HONGKONG' AND $mode_of_payment == 'Cash On Delivery') {
-                                    // echo 'try';
                                     $surcharge = $subtotal * 0.025;
                                 } else {
                                     $surcharge = 0;
@@ -981,7 +945,9 @@
                                 // Total Amount
                                 $total_amount = $subtotal + $surcharge + $shipping - $less_shipping_fee ;
 
-                                // echo $customer_country;
+                                // echo $customer_country;  
+                                // echo '<br>';
+                                // echo $rebate_less;
                             ?>
 
                             <!-- Subtotal -->
