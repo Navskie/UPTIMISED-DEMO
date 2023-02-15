@@ -1,5 +1,5 @@
 <?php include 'include/header.php'; ?>
-<?php //include 'include/preloader.php'; ?>
+<?php include 'include/preloader.php'; ?>
 <?php include 'include/navbar.php'; ?>
 <?php include 'include/sidebar.php'; ?>
 <style>
@@ -813,12 +813,19 @@
                                 $subtotal = $subtotal_fetch['subtotal'];
 
                                 // LESS shipping FEE
-                                $less_shipping_sql = "SELECT COUNT(*) AS test, SUM(ol_qty) AS test2 FROM upti_order_list INNER JOIN upti_code ON code_name = ol_code WHERE ol_poid = '$poid' AND code_category = 'PROMO' OR code_category = 'BUY ONE GET ANY' OR code_category = 'REBATABLE' OR code_category = 'BUY ONE GET TWO' OR code_category = 'REBATABLE'";
+                                $less_shipping_sql = "SELECT COUNT(*) AS test, SUM(ol_qty) AS test2 FROM upti_order_list INNER JOIN upti_code ON code_name = ol_code 
+                                WHERE 
+                                ol_poid = '$poid' AND code_category = 'PROMO' OR 
+                                ol_poid = '$poid' AND code_category = 'BUY ONE GET ANY' OR 
+                                ol_poid = '$poid' AND code_category = 'REBATABLE' OR 
+                                ol_poid = '$poid' AND code_category = 'BUY ONE GET TWO' OR 
+                                ol_poid = '$poid' AND code_category = 'REBATABLE'";
                                 $less_shipping_qry = mysqli_query($connect, $less_shipping_sql);
                                 $less_shipping_fetch = mysqli_fetch_array($less_shipping_qry);
 
                                 $order_qty = $less_shipping_fetch['test'];
                                 $sum_ng_qty = $less_shipping_fetch['test2'];
+                                // echo '<br>';
 
                                 // FOR CANADA PART
                                 if ($customer_country == 'UNITED ARAB EMIRATES' || $customer_country == 'CANADA') {
@@ -908,11 +915,37 @@
                                   $tie_up_shipping = 0;
                                 }
 
-                                if ($shipping_num <= 0 || $mode_of_payment == 'Cash On Pick Up' || $order_qty <= 2 && $customer_country == 'PHILIPPINES') {
+                                
+                                // echo $tie_up_shipping;
+                                // echo '<br>';
+                                // echo $shipping_fetch['shipping_price'];
+                                if ($shipping_num < 1 || $mode_of_payment == 'Cash On Pick Up') {
                                     $shipping = 0 + $tie_up_shipping;
                                 } else {
                                     $shipping = $shipping_fetch['shipping_price'] + $tie_up_shipping;
                                 }
+
+                                if ($customer_country == 'PHILIPPINES') {
+                                  if ($order_qty == 3 || $order_qty == 4) {
+                                      $shipping = $shipping * 2;
+                                  } elseif ($order_qty == 5 || $order_qty == 6) {
+                                      $shipping = $shipping * 3;
+                                  } elseif ($order_qty == 7 || $order_qty == 8) {
+                                      $shipping = $shipping * 4;
+                                  } elseif ($order_qty == 9 || $order_qty == 10) {
+                                      $shipping = $shipping * 5;
+                                  } elseif ($order_qty == 11 || $order_qty == 12) {
+                                      $shipping = $shipping * 6;
+                                  } elseif ($order_qty == 13 || $order_qty == 14) {
+                                      $shipping = $shipping * 7;
+                                  } elseif ($order_qty == 15 || $order_qty == 16) {
+                                      $shipping = $shipping * 8;
+                                  } elseif ($order_qty == 17 || $order_qty == 18) {
+                                      $shipping = $shipping * 9;
+                                  } elseif ($order_qty == 19 || $order_qty == 20) {
+                                      $shipping = $shipping * 10;
+                                  }
+                              }
 
                                 if($customer_country == 'HONGKONG' AND $mode_of_payment == 'Cash On Delivery') {
                                     $surcharge = $subtotal * 0.025;
@@ -920,34 +953,9 @@
                                     $surcharge = 0;
                                 }
 
-                                if ($customer_country == 'PHILIPPINES') {
-                                    if ($order_qty == 3 || $order_qty == 4) {
-                                        $shipping = $shipping * 2;
-                                    } elseif ($order_qty == 5 || $order_qty == 6) {
-                                        $shipping = $shipping * 3;
-                                    } elseif ($order_qty == 7 || $order_qty == 8) {
-                                        $shipping = $shipping * 4;
-                                    } elseif ($order_qty == 9 || $order_qty == 10) {
-                                        $shipping = $shipping * 5;
-                                    } elseif ($order_qty == 11 || $order_qty == 12) {
-                                        $shipping = $shipping * 6;
-                                    } elseif ($order_qty == 13 || $order_qty == 14) {
-                                        $shipping = $shipping * 7;
-                                    } elseif ($order_qty == 15 || $order_qty == 16) {
-                                        $shipping = $shipping * 8;
-                                    } elseif ($order_qty == 17 || $order_qty == 18) {
-                                        $shipping = $shipping * 9;
-                                    } elseif ($order_qty == 19 || $order_qty == 20) {
-                                        $shipping = $shipping * 10;
-                                    }
-                                }
-
                                 // Total Amount
                                 $total_amount = $subtotal + $surcharge + $shipping - $less_shipping_fee ;
 
-                                // echo $customer_country;  
-                                // echo '<br>';
-                                // echo $rebate_less;
                             ?>
 
                             <!-- Subtotal -->
@@ -957,14 +965,6 @@
                             <div class="col-4">
                                 <span class="float-right"><?php echo number_format($subtotal, 2)?></span>
                             </div>
-
-                            <!-- Promo Code Discount -->
-                            <!--<div class="col-8">-->
-                            <!--    <span class="float-right">Promo Code Discount : </span>-->
-                            <!--</div>-->
-                            <!--<div class="col-4">-->
-                            <!--    <span class="float-right">0.00</span>-->
-                            <!--</div>-->
 
                             <?php if($customer_country == 'HONGKONG' AND $mode_of_payment == 'Cash On Delivery') { ?>
                             <!-- Less Shipping -->

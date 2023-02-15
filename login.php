@@ -52,41 +52,6 @@
 
     $update_users = mysqli_query($connect, "UPDATE upti_users SET users_inviter = '$reseller_osr' WHERE users_code = '$reseller_code'");
   }
-
-  // $test_update_sql = mysqli_query($connect, "SELECT * FROM upti_transaction WHERE trans_status = 'Pending' AND trans_mop != 'Cash on Pick Up'");
-  // while ($test_fetch = mysqli_fetch_array($test_update_sql)) {
-  //   $trans_date = $test_fetch['trans_date'];
-  //   $trans_poid = $test_fetch['trans_poid'];
-  //   $order_date = strtotime($trans_date);
-
-  //   if ($order_date <= $less_n_date) {
-  //     // echo $order_date;
-  //     // echo $less_n_date;
-  //     // echo 'true - ';
-  //     // echo $trans_poid;
-  //     // echo '<br>';
-  //   }
-
-  //   // if (($trans_date) <= ($less_date) AND ($order_date) <= ($less_n_date)) {
-  //   //   $test_update = "UPDATE upti_transaction SET trans_status = 'Canceled' WHERE trans_poid = '$trans_poid'";
-  //   //   $pending_auto = mysqli_query($connect, $test_update);
-
-  //   //   $pending_auto2 = mysqli_query($connect, "UPDATE upti_order_list SET ol_status = 'Canceled' WHERE ol_poid = '$trans_poid'");
-
-  //   //   date_default_timezone_set('Asia/Manila');
-  //   //   $time = date("h:m:i");
-  //   //   $datenow = date('m-d-Y');
-
-  //   //   // HISTORY
-  //   //   $act = "INSERT INTO upti_activities (activities_poid, activities_time, activities_date, activities_name, activities_caption, activities_desc) VALUES ('$trans_poid', '$time', '$datenow', 'SYSTEM', 'Canceled', '$desc')";
-  //   //   $act_qry = mysqli_query($connect, $act);
-  //   // } else {
-  //   //   // echo '<b>'.$trans_date.'</b> - ';
-  //   //   // echo 'False ';
-  //   //   // echo $trans_poid;
-  //   //   // echo '<br>';
-  //   // }
-  // }
   
 ?>
 <?php
