@@ -31,6 +31,11 @@
       <link rel="stylesheet" type="text/css" href="assets/pages/flag-icon/flag-icon.min.css">
       <!-- Menu-Search css -->
       <link rel="stylesheet" type="text/css" href="assets/pages/menu-search/css/component.css">
+      <!-- Select 2 css -->
+      <link rel="stylesheet" href="bower_components/select2/css/select2.min.css">  
+      <!-- Multi Select css -->
+      <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-multiselect/css/bootstrap-multiselect.css">
+      <link rel="stylesheet" type="text/css" href="bower_components/multiselect/css/multi-select.css">
       <!-- Data Table Css -->
       <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
       <link rel="stylesheet" type="text/css" href="assets/pages/data-table/css/buttons.dataTables.min.css">

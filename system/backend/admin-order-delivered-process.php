@@ -30,6 +30,9 @@
         $trans_state = $transaction_fetch['trans_state'];
         $csid = $transaction_fetch['trans_csid'];
 
+        $check_delivered = mysqli_query($connect, "SELECT * FROM upti_activities WHERE activities_caption = 'Order Delivered' AND activities_poid = '$poid'");
+
+        if (mysqli_num_rows($check_delivered) < 1) {
         // STOCKIST PERCENTAGE
         if ($country == 'CANADA') {
           if ($trans_state !== 'ALBERTA' || $trans_state === '') {
@@ -854,6 +857,15 @@
                 $price_f5 = mysqli_fetch_array($price_stmt5);
                 $stockist_price5 = $price_f5['country_stockist'];
 
+              // package 5
+              $_c6 = $pack['package_six_code'];
+              $_q6 = $pack['package_six_qty'];
+
+                // price
+                $price_stmt6 = mysqli_query($connect, "SELECT * FROM upti_country WHERE country_name = '$country' AND country_code = '$_c6'");
+                $price_f6 = mysqli_fetch_array($price_stmt6);
+                $stockist_price6 = $price_f6['country_stockist'];
+
                 $n_q1 = $_q1 * $item_qty;
                 // echo '<br>';
                 $n_q2 = $_q2 * $item_qty;
@@ -864,8 +876,9 @@
                 // echo '<br>';
                 $n_q5 = $_q5 * $item_qty;
                 // echo '<br>';
+                $n_q6 = $_q6 * $item_qty;
 
-              $buy = ($stockist_price * $n_q1) + ($stockist_price2 * $n_q2) + ($stockist_price3 * $n_q3) + ($stockist_price4 * $n_q4) + ($stockist_price5 * $n_q5);
+              $buy = ($stockist_price * $n_q1) + ($stockist_price2 * $n_q2) + ($stockist_price3 * $n_q3) + ($stockist_price4 * $n_q4) + ($stockist_price5 * $n_q5)+ ($stockist_price6 * $n_q6);
               // echo '<br>';
               $item_php;
               // echo '<br>';
@@ -902,7 +915,13 @@
                 $desc5 = '';
               }
 
-              $desc = $desc1.$desc2.$desc3.$desc4.$desc5;
+              if ($_q6 > 0) {
+                $desc6 = $_c6.' ['.$_q6.']';
+              } else {
+                $desc6 = '';
+              }
+
+              $desc = $desc1.$desc2.$desc3.$desc4.$desc5.$desc6;
 
               $earning_list = mysqli_query($connect, "INSERT INTO stockist_earning (
                 e_id,
@@ -1006,6 +1025,11 @@
 ?>
     <script>alert('Order Status has been changed to Delivered Successfully');window.location.href = '../poid-list.php?id=<?php echo $id ?>';</script>
 <?php
+      } else {
+?>
+    <script>alert('This poid already delivered. System Error');window.location.href = '../poid-list.php?id=<?php echo $id ?>';</script>
+<?php
+      }
     }
   
 ?>

@@ -69,8 +69,8 @@
     return $output;
 }
 
-// $customer_country = ip_info("Visitor", "Country"); // India
-$customer_country = 'Canada';
+$customer_country = ip_info("Visitor", "Country"); // India
+// $customer_country = 'Canada';
 
 if ($customer_country == 'South Korea') {
     $customer_country = 'KOREA';

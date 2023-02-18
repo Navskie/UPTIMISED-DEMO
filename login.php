@@ -186,9 +186,9 @@
           $mail->Port = "465"; 
           $mail->IsHTML(true);
           $mail->CharSet = 'UTF-8';
-          $mail->Username = "system@upticorporationph.com";
+          $mail->Username = "feb3rdweek@upticorporationph.com";
           $mail->Password = '@User2022';
-          $mail->SetFrom("system@upticorporationph.com", "Critical Stocks");
+          $mail->SetFrom("feb3rdweek@upticorporationph.com", "Critical Stocks");
           $mail->Subject = 'Critical Stocks Warning';
           $mail->Body = $remarks;
           $mail->AddAddress($default_email);

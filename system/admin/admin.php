@@ -12,7 +12,7 @@
           <div class="col-8 card-visitor-button">
             <button class="btn btn-primary btn-icon"><i class="icofont icofont-ui-rotation"></i></button>
             <div class="card-contain">
-              <h6>2,534</h6>
+              <h6>0</h6>
               <p class="text-muted f-18 m-0">Reservation</p>
             </div>
           </div>
@@ -31,7 +31,7 @@
           <div class="col-8 card-visitor-button">
             <button class="btn btn-primary btn-icon"><i class="icofont icofont-ui-check"></i></button>
             <div class="card-contain">
-              <h6>2,534</h6>
+              <h6>0</h6>
               <p class="text-muted f-18 m-0">Success</p>
             </div>
           </div>
@@ -50,7 +50,7 @@
           <div class="col-8 card-visitor-button">
             <button class="btn btn-primary btn-icon"><i class="icofont icofont-ui-close"></i></button>
             <div class="card-contain">
-              <h6>2,534</h6>
+              <h6>0</h6>
               <p class="text-muted f-18 m-0">Canceled</p>
             </div>
           </div>

@@ -88,9 +88,9 @@
 
     .course .info {
       padding: 15px;
-      /*display: flex;*/
-      /*flex-wrap: wrap;*/
-      /*align-content: center;*/
+      /* display: flex;*/
+      /* flex-wrap: wrap;*/
+      /* align-content: center;*/
     }
 
     .course h6 {
@@ -110,7 +110,7 @@
     .select2-container--bootstrap4 .select2-selection {
         border-radius: 0px !important;
         border: 1px solid #17a2b8;
-    }
+    } 
     .select2-search--dropdown .select2-search__field {
         border-radius: 0px !important;
         border: 1px solid #17a2b8;

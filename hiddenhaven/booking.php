@@ -67,8 +67,7 @@
     </div>
     <div class="col-8">
       <?php
-        // echo $_SESSION['diff'];
-        // unset($_SESSION['diff']);
+
         if (isset($_POST['validate'])) {
           if ($_SESSION['guest'] == '' && $myCode == '') {
             $random_number = rand(1, 9999);

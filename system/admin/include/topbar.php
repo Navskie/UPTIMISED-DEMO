@@ -71,6 +71,14 @@
                       <span class="pcoded-mcaret"></span>
                   </a>
               </li>
+              <li class=" ">
+                  <a href="booking.php">
+                      <span class="pcoded-micon"><i class="ti-reload rotate-refresh"></i></span>
+                      <span class="pcoded-mtext" data-i18n="nav.widget.main">Block</span>
+                      <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+                      <span class="pcoded-mcaret"></span>
+                  </a>
+              </li>
               <li class="pcoded-hasmenu">
                   <a href="javascript:void(0)">
                       <span class="pcoded-micon"><i class="ti-home"></i></span>
