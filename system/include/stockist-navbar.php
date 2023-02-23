@@ -7,6 +7,12 @@
     $get_country_fetch = mysqli_fetch_array($get_country_qry);
 
     $employee = $get_country_fetch['users_employee'];
+    $codekotowagka = $get_country_fetch['users_code'];
+
+    $get_country_ = mysqli_query($connect, "SELECT * FROM stockist WHERE stockist_code = '$codekotowagka'");
+    $fetchkocountry = mysqli_fetch_array($get_country_);
+
+    $bansakonato = $fetchkocountry['stockist_country'];
 
     if ($role == 'UPTIRESELLER') { 
 ?>
@@ -36,7 +42,16 @@
             $notif_sum_num = mysqli_num_rows($notif_sum_qry);
             $notif_sum_fetch = mysqli_fetch_array($notif_sum_qry);
 
-            $note = $notif_sum_fetch['NOTIF'];
+            $notif_sum_sql1 = "SELECT COUNT(*) AS NOTIF FROM upti_remarks
+            INNER JOIN
+            upti_transaction ON remark_poid = trans_poid
+            WHERE
+            trans_country = '$bansakonato' AND remark_csr = 'Unread' AND remark_code = 'Stockist'";
+            $notif_sum_qry1 = mysqli_query($connect, $notif_sum_sql1);
+            $notif_sum_num1 = mysqli_num_rows($notif_sum_qry1);
+            $notif_sum_fetch1 = mysqli_fetch_array($notif_sum_qry1);
+            // echo $notif_sum_fetch['NOTIF'];
+            $note = $notif_sum_fetch['NOTIF'] + $notif_sum_fetch1['NOTIF'];
 
             if ($note == 0) {
           ?>
@@ -50,19 +65,40 @@
           <div class="dropdown-divider"></div>
           <?php
             
-            $get_notif = "SELECT DISTINCT stockist_remarks.remarks_reference, stockist_remarks.id FROM stockist_remarks
+            $get_notif = "
+            SELECT DISTINCT remarks_reference, stockist_remarks.id FROM stockist_remarks
             INNER JOIN
-            stockist_request ON stockist_remarks.remarks_reference = stockist_request.req_reference
+            stockist_request ON remarks_reference = req_reference
             WHERE
-            stockist_remarks.remarks_code = '$notifcode' AND stockist_remarks.remarks_csr = 'Unread'";
+            remarks_code = '$notifcode' AND remarks_csr = 'Unread'
+            UNION
+            SELECT trans_poid, upti_remarks.id  FROM upti_remarks
+            INNER JOIN
+            upti_transaction ON remark_poid = trans_poid
+            WHERE
+            trans_country = '$bansakonato' AND remark_csr = 'Unread' AND remark_code = 'Stockist'";
             $get_notif_sql = mysqli_query($connect, $get_notif);
             while ($row = mysqli_fetch_array($get_notif_sql)) {
+              $newcode = $row['remarks_reference'];
+
+              $getpoidtest = mysqli_query($connect, "SELECT * FROM upti_transaction WHERE trans_poid = '$newcode'");
+              $kulot_fetch = mysqli_fetch_array($getpoidtest);
+
+              if (mysqli_num_rows($getpoidtest) > 0) {
+                $idnikulot = $kulot_fetch['id'];
           ?>
+          <a href="./read-info.php?id=<?php echo $idnikulot; ?>" class="dropdown-item">
+            <i class="fas fa-comment mr-2 text-primary"></i> <b><?php echo $row['remarks_reference']; ?></b>
+            <span class="float-right text-muted text-sm">Remarks</span>
+          </a>
+          <?php
+              } else {
+          ?> 
           <a href="./read-info.php?id=<?php echo $row['id']; ?>" class="dropdown-item">
             <i class="fas fa-comment mr-2 text-primary"></i> <b><?php echo $row['remarks_reference']; ?></b>
-            <span class="float-right text-muted text-sm">New Remarks</span>
+            <span class="float-right text-muted text-sm">Remarks</span>
           </a>
-          <?php } ?>
+          <?php } } ?>
         </div>
       </li>
       <?php
@@ -175,7 +211,7 @@
           <div class="dropdown-divider"></div>
           <?php
             
-            $get_notif = "SELECT DISTINCT stockist_remarks.remarks_reference, stockist_remarks.id FROM stockist_remarks
+            $get_notif = "SELECT DISTINCT remarks_reference, stockist_remarks.id FROM stockist_remarks
             INNER JOIN
             stockist_request ON stockist_remarks.remarks_reference = stockist_request.req_reference
             WHERE stockist_remarks.remarks_stockist = 'Unread'";

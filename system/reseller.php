@@ -229,7 +229,7 @@
           <h6>My Replicated Website</h6>
           <h2><b><?php echo $_SESSION['code'] ?></b></h2>
           <div class="copy-text">
-            <input type="text" id="myInput" value="https://system.uptimised-hris.com/replicate.php?id=<?php echo $_SESSION['code'] ?>" style="display: none">
+            <input type="text" id="myInput" value="https://upticorporationph.com/replicate.php?id=<?php echo $_SESSION['code'] ?>" style="display: none">
             <button class="btn btn-success" onclick="myFunction()"><i class="uil uil-copy"></i> Get Link</button>
             <br><br>
           </div>

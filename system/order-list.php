@@ -324,7 +324,8 @@
                                                         upti_items.items_status = 'Active' AND upti_code.code_category = 'REBATABLE' OR
                                                         upti_items.items_status = 'Active' AND upti_code.code_category = 'BUY ONE GET ANY' OR
                                                         upti_items.items_status = 'Active' AND upti_code.code_category = 'BUY ONE GET TWO' OR
-                                                        upti_items.items_status = 'Active' AND upti_code.code_category = 'NON-REBATABLE'
+                                                        upti_items.items_status = 'Active' AND upti_code.code_category = 'NON-REBATABLE' OR
+                                                        upti_items.items_status = 'Active' AND upti_code.code_category = 'ONE TO THREE'
                                                         UNION
                                                         SELECT upti_package.package_code, upti_package.package_desc FROM upti_package INNER JOIN upti_code ON upti_package.package_code = upti_code.code_name WHERE
                                                         upti_package.package_category != 'RESELLER' AND upti_package.package_status = 'Active' OR
@@ -332,7 +333,8 @@
                                                         upti_code.code_category = 'REBATABLE' AND upti_package.package_status = 'Active' OR
                                                         upti_code.code_category = 'BUY ONE GET ANY' AND upti_package.package_status = 'Active' OR
                                                         upti_code.code_category = 'BUY ONE GET TWO' AND upti_package.package_status = 'Active' OR
-                                                        upti_code.code_category = 'NON-REBATABLE' AND upti_package.package_status = 'Active'
+                                                        upti_code.code_category = 'NON-REBATABLE' AND upti_package.package_status = 'Active' OR
+                                                        upti_code.code_category = 'ONE TO THREE' AND upti_package.package_status = 'Active'
                                                         ";
                                                         $product_qry = mysqli_query($connect, $product_sql);
                                                     ?>

@@ -26,7 +26,6 @@
                                     <tr>
                                       <th class="text-center">#</th>
                                       <th class="text-center">ID Number</th>
-                                      <th class="text-center">Order #</th>
                                       <th class="text-center">Name</th>
                                       <th class="text-center">Username</th>
                                       <th class="text-center">Password</th>
@@ -37,7 +36,7 @@
                                 <?php
                                     $creator_code = $_SESSION['code'];
 
-                                    $account = "SELECT upti_users.users_status, upti_users.users_count, upti_reseller.id, upti_reseller.reseller_package, upti_reseller.reseller_desc, upti_reseller.reseller_amount, upti_reseller.reseller_name, upti_reseller.reseller_mobile, upti_reseller.reseller_address, upti_reseller.reseller_code, upti_reseller.reseller_status, upti_reseller.reseller_main, upti_reseller.reseller_date, upti_users.users_username, upti_users.users_password FROM upti_reseller INNER JOIN upti_users ON upti_reseller.reseller_code = upti_users.users_code WHERE upti_users.users_status = 'Active' AND upti_users.users_main <> 'UPTIMAIN' AND upti_users.users_count > 0 GROUP BY upti_reseller.reseller_code ORDER BY id DESC";
+                                    $account = "SELECT upti_users.users_status, upti_reseller.id, upti_reseller.reseller_package, upti_reseller.reseller_desc, upti_reseller.reseller_amount, upti_reseller.reseller_name, upti_reseller.reseller_mobile, upti_reseller.reseller_address, upti_reseller.reseller_code, upti_reseller.reseller_status, upti_reseller.reseller_main, upti_reseller.reseller_date, upti_users.users_username, upti_users.users_password FROM upti_reseller INNER JOIN upti_users ON upti_reseller.reseller_code = upti_users.users_code WHERE upti_users.users_status = 'Active' AND upti_users.users_main <> 'UPTIMAIN' GROUP BY upti_reseller.reseller_code ORDER BY id DESC";
                                     $account_qry = mysqli_query($connect, $account);
                                     $number = 1;
                                     while ($account_fetch = mysqli_fetch_array($account_qry)) {
@@ -45,7 +44,6 @@
                                   <tr>
                                     <td class="text-center"><?php echo $number ?></td>
                                     <td class="text-center"><?php echo $account_fetch['reseller_code'] ?></td>
-                                    <td class="text-center"><?php echo $account_fetch['users_count'] ?></td>
                                     <td class="text-center"><?php echo $account_fetch['reseller_name'] ?></td>
                                     <td class="text-center"><?php echo $account_fetch['users_username'] ?></td>
                                     <td class="text-center"><?php echo $account_fetch['users_password'] ?></td>

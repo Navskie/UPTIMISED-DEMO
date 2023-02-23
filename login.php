@@ -27,36 +27,11 @@
   // session_start();
   include 'include/db.php';
   include 'function.php'; 
-
-  // delete pending order 
-  $less_date = date('m-d-Y', strtotime('-14 days'));
-  $less_n_date = strtotime($less_date);
-  $desc = 'Automatically Canceled by System';
-  // echo '<br>';
-  // $datetoday = '01-03-2023';
-  // $datestr = strtotime($datetoday);
-  // if (($datestr) <= ($less_date)) {
-  //   echo "true";
-  // } else {
-  //   echo "false";
-  // }
-
-  $sql = mysqli_query($connect, "SELECT reseller_osr, reseller_code, trans_seller, reseller_poid, trans_poid FROM upti_reseller INNER JOIN upti_transaction ON trans_poid = reseller_poid");
-
-  foreach ($sql as $data_sql) {
-    $reseller_osr = $data_sql['trans_seller'];
-    $reseller_paid = $data_sql['reseller_poid'];
-    $reseller_code = $data_sql['reseller_code'];
-
-    $update_sql = mysqli_query($connect, "UPDATE upti_reseller SET reseller_osr = '$reseller_osr' WHERE reseller_poid = '$reseller_paid'");
-
-    $update_users = mysqli_query($connect, "UPDATE upti_users SET users_inviter = '$reseller_osr' WHERE users_code = '$reseller_code'");
-  }
   
 ?>
 <?php
     session_start();
-    if ($_SESSION['status'] == 'invalid' || empty($_SESSION['status'])) {
+      if ($_SESSION['status'] == 'invalid' || empty($_SESSION['status'])) {
         $_SESSION['status'] = 'invalid';
       }
     

@@ -87,6 +87,7 @@
                             <option value="FREE">FREE</option>
                             <option value="BUY ONE GET TWO">BUY ONE GET TWO</option>
                             <option value="FREE TWO">FREE TWO</option>
+                            <option value="ONE TO THREE">ONE TO THREE</option>
                         </select>
                     </div>
                 </div>

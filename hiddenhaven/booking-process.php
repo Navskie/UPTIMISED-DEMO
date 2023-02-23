@@ -37,25 +37,25 @@
     if ($_SESSION['diff'] == 'day') {
       $row_data = mysqli_fetch_array($getdays_qry);
       $dt = $row_data['book_date'];
-      $days_text = date('l', strtotime($dt));
+      echo $days_text = date('l', strtotime($dt));
 
-      if ($days_text == 'Saturday' || $days_text == 'Sunday' || $days_text = 'Friday') {
-        // echo 'blee';
-        // echo '<br>';
-        $price_check = mysqli_query($connect, "SELECT * FROM haven_product WHERE product_code = '$HHcode'");
-        $price_fetch = mysqli_fetch_array($price_check);
+      // if ($days_text == 'Saturday' || $days_text == 'Sunday' || $days_text = 'Friday') {
+      //   // echo 'blee';
+      //   // echo '<br>';
+      //   $price_check = mysqli_query($connect, "SELECT * FROM haven_product WHERE product_code = '$HHcode'");
+      //   $price_fetch = mysqli_fetch_array($price_check);
 
-        $price_total_check = $price_fetch['weekend_eight'];
-        // echo '<br>';
-      } else {
+      //   $price_total_check = $price_fetch['weekend_eight'];
+      //   // echo '<br>';
+      // } else {
 
-        $price_check = mysqli_query($connect, "SELECT * FROM haven_product WHERE product_code = '$HHcode'");
-        $price_fetch = mysqli_fetch_array($price_check);
+      //   $price_check = mysqli_query($connect, "SELECT * FROM haven_product WHERE product_code = '$HHcode'");
+      //   $price_fetch = mysqli_fetch_array($price_check);
 
-        $price_total_check = $price_fetch['weekday_eight'];
-        // echo 'nako';
-        // echo '<br>';
-      }
+      //   $price_total_check = $price_fetch['weekday_eight'];
+      //   // echo 'nako';
+      //   // echo '<br>';
+      // }
     } else {
       while ($row_data = mysqli_fetch_array($getdays_qry)) {
         $dt = $row_data['book_date'];
@@ -85,7 +85,7 @@
   
       }
   
-      $price_total_check;
+      echo $price_total_check;
     }
 
     if ($pax >= 5) {
@@ -100,7 +100,7 @@
       echo '<script>alert("You have exceeded the villa capacity.");window.location.href = "booking.php?HHCode='.$HHcode.'";</script>';
     } else {
       $insert_name1 = "INSERT INTO haven_name (hh_code, pangalan) VALUES ('$poid', '$fname1')";
-      $insert_name1_qry = mysqli_query($connect, $insert_name1);
+      // $insert_name1_qry = mysqli_query($connect, $insert_name1);
 
       $details = "INSERT INTO haven_details (
         details_code,
@@ -119,7 +119,7 @@
         '$amount',
         '$contact'
       )";
-      $details_qry = mysqli_query($connect, $details);
+      // $details_qry = mysqli_query($connect, $details);
 
       // header('Location: booking.php?HHCode='.$HHcode.'');
       echo '<script>alert("Information have been save successfully.");window.location.href = "booking.php?HHCode='.$HHcode.'";</script>';

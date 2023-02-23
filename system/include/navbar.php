@@ -179,7 +179,7 @@
           <i class="far fa-bell"></i>
           <?php
             $notifcode = $_SESSION['code'];
-            $notif_sum_sql = "SELECT COUNT(upti_transaction.id) AS notif FROM upti_remarks INNER JOIN upti_transaction ON upti_remarks.remark_poid = upti_transaction.trans_poid WHERE upti_transaction.trans_seller = '$notifcode' AND upti_remarks.remark_reseller = 'Unread'";
+            $notif_sum_sql = "SELECT COUNT(upti_transaction.id) AS notif FROM upti_remarks INNER JOIN upti_transaction ON upti_remarks.remark_poid = upti_transaction.trans_poid WHERE upti_transaction.trans_seller = '$notifcode' AND upti_remarks.remark_reseller = 'Unread' AND upti_remarks.remark_code = 'Stockist' AND upti_transaction.trans_seller = '$notifcode' AND upti_remarks.remark_reseller = 'Unread' AND upti_remarks.remark_code = 'Stockist'";
             $notif_sum_qry = mysqli_query($connect, $notif_sum_sql);
             $notif_sum_num = mysqli_num_rows($notif_sum_qry);
             $notif_sum_fetch = mysqli_fetch_array($notif_sum_qry);

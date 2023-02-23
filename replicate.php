@@ -3,9 +3,10 @@
 
   $id = $_GET['id'];
 
-  $info_stmt = mysqli_query($connect, "SELECT * FROM upti_users WHERE users_code = '$id'");
+  $happy = "SELECT * FROM upti_users WHERE users_code = '$id'";
+  $info_stmt = mysqli_query($connect, $happy);
   $info_fetch = mysqli_fetch_array($info_stmt);
-
+  // echo $info_fetch['users_img'];
 ?>
   <div class="container">
     <div class="row">
@@ -15,8 +16,8 @@
           <form action="replicate-process.php?id=<?php echo $id ?>" method="post">
             <div class="row">
               <div class="col-12">
-                <!--<?php //echo $info_fetch['users_img'] ?>-->
-                <?php if ($info_fetch['users_img'] == '') { ?>
+                <?php echo $info_fetch['users_img'] ?>
+                <?php if (empty($info_fetch['users_img'])) { ?>
                 <img src="assets/images/main/default.jpg" alt="" class="image-responsive w-100">
                 <?php } else { ?>
                 <img src="system/images/profile/<?php echo $info_fetch['users_img'] ?>" alt="" class="image-responsive w-100">
