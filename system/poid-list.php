@@ -413,7 +413,7 @@
 
                                                     $mypoid = $transact['trans_poid'];
 
-                                                    $comment_sql = "SELECT * FROM upti_remarks WHERE remark_poid = '$mypoid' ORDER BY id DESC";
+                                                    $comment_sql = "SELECT * FROM upti_remarks WHERE remark_poid = '$mypoid' GROUP BY remark_content ORDER BY id DESC";
                                                     $comment_qry = mysqli_query($connect, $comment_sql);
                                                     $comment_num = mysqli_num_rows($comment_qry);
                                                     if ($comment_num > 0) {
