@@ -374,6 +374,9 @@
                                           // echo 'kier na kulot';
                                           $remarks_sql = "INSERT INTO upti_remarks (remark_time, remark_date, remark_poid, remark_name, remark_content, remark_reseller, remark_code) VALUES ('$time', '$date', '$mypoid', '$name', '$comment_mo', 'Unread', 'Stockist')";
                                           $remarks_qry = mysqli_query($connect, $remarks_sql);
+
+                                          $remarks_sql = "INSERT INTO upti_remarks (remark_time, remark_date, remark_poid, remark_name, remark_content, remark_csr) VALUES ('$time', '$date', '$mypoid', '$name', '$comment_mo', 'Unread')";
+                                          $remarks_qry = mysqli_query($connect, $remarks_sql);
                                         
                                         }else {
                                           $remarks_sql = "INSERT INTO upti_remarks (remark_time, remark_date, remark_poid, remark_name, remark_content, remark_csr, remark_code) VALUES ('$time', '$date', '$mypoid', '$name', '$comment_mo', 'Unread', 'Stockist')";
